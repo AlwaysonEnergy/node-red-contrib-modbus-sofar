@@ -57,6 +57,8 @@ de.biancoroyal.modbus.core.functionCodeModbusWrite = function (dataType) {
       return 15
     case 'MHoldingRegisters':
       return 16
+    case 'HoldingRegistersSofar':
+      return 66
     default:
       return -1
   }

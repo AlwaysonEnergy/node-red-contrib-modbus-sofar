@@ -121,6 +121,7 @@
                     <option value="HoldingRegister">FC 6: Preset Single Register</option>
                     <option value="MCoils">FC 15: Force Multiple Coils</option>
                     <option value="MHoldingRegisters">FC 16: Preset Multiple Registers</option>
+                    <option value="HoldingRegistersSofar">FC 66: Preset Sofar Registers</option>
                 </select>
             </div>
             <div class="form-row">
@@ -192,6 +193,7 @@
           <li>FC 6: Preset Single Register</li>
           <li>FC 15: Force Multiple Coils</li>
           <li>FC 16: Preset Multiple Registers</li>
+          <li>FC 66: Preset Sofar Registers</li>
         </ul>
     </p>
     <p>
@@ -208,6 +210,7 @@
         For FC 15, <strong>msg.payload</strong> must be an array[] of comma separated values true or false each.
         For FC 6, <strong>msg.payload</strong> must be a single value between 0:65535.
         For FC 16, <strong>msg.payload</strong> must be an array[] of comma separated values between 0:65535 each.
+        For FC 66, <strong>msg.payload</strong> must be a single value between 0:65535.
     </p>
 
      <p>Output 1: all given data, modbus response Buffer, input message</p>

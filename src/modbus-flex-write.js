@@ -93,7 +93,8 @@ module.exports = function (RED) {
               (msg.payload.fc === 5 ||
                 msg.payload.fc === 6 ||
                 msg.payload.fc === 15 ||
-                msg.payload.fc === 16))) {
+                msg.payload.fc === 16 ||
+                msg.payload.fc === 66))) {
         node.error('FC Not Valid', msg)
         isValid &= false
       }

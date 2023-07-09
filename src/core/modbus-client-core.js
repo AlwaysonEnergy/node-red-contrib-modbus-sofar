@@ -331,6 +331,29 @@ de.biancoroyal.modbus.core.client.writeModbusByFunctionCodeSixteen = function (n
   }
 }
 
+de.biancoroyal.modbus.core.client.writeModbusByFunctionCodeSixtySix = function (node, msg, cb, cberr) {
+  const coreClient = de.biancoroyal.modbus.core.client
+  if (parseInt(msg.payload.value.length) !== parseInt(msg.payload.quantity)) {
+    coreClient.activateSendingOnFailure(node, cberr, new Error('Quantity should be less or equal to register payload array length: ' +
+      msg.payload.value.length + ' Addr: ' + msg.payload.address + ' Q: ' + msg.payload.quantity), msg)
+  } else {
+    node.client.writeRegisters(parseInt(msg.payload.address), msg.payload.value).then(function (resp) {
+      coreClient.activateSendingOnSuccess(node, cb, cberr, resp, msg)
+    }).catch(function (err) {
+      if (node.client.getID() === 0) {
+        const resp = {
+          address: parseInt(msg.payload.address),
+          value: parseInt(msg.payload.value)
+        }
+        coreClient.activateSendingOnSuccess(node, cb, cberr, resp, msg)
+      } else {
+        coreClient.activateSendingOnFailure(node, cberr, err, msg)
+        node.modbusErrorHandling(err)
+      }
+    })
+  }
+}
+
 de.biancoroyal.modbus.core.client.writeModbus = function (node, msg, cb, cberr) {
   const coreClient = de.biancoroyal.modbus.core.client
   const nodeLog = de.biancoroyal.modbus.core.client.getLogFunction(node)
@@ -379,6 +402,9 @@ de.biancoroyal.modbus.core.client.writeModbus = function (node, msg, cb, cberr) 
           break
         case 6: // FC: 6
           coreClient.writeModbusByFunctionCodeSix(node, msg, cb, cberr)
+          break
+        case 66: //FC: 66
+          coreClient.writeModbusByFunctionCodeSixtySix(node, msg, cb, cberr)
           break
         default:
           coreClient.activateSendingOnFailure(node, cberr, new Error('Function Code Unknown'), msg)

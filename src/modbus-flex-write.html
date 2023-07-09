@@ -138,13 +138,14 @@
           <li>FC 6: Preset Single Register</li>
           <li>FC 15: Force Multiple Coils</li>
           <li>FC 16: Preset Multiple Registers</li>
+          <li>FC 66: Preset sofar Registers</li>
         </ul>
     </p>
      <p>
          <strong>Input parameter for connecting Modbus</strong>
          <ul>
              <li>unitid (0..255 tcp | 0..247 serial) - overrides default Unit-ID</li>
-             <li>fc (5|6|15|16)</li>
+             <li>fc (5|6|15|16|66)</li>
              <li>start address (0:65535)</li>
              <li>quantity (1:65535) of coils/inputs/registers to be written from the start address</li>
          </ul>
@@ -154,6 +155,7 @@
         For FC 5, <strong>msg.payload</strong> must be a value of 1 or 0 or true or false.
         For FC 6, <strong>msg.payload</strong> must be a single value between 0:65535.
         For FC 16, <strong>msg.payload</strong> must be an array[] of comma separated values between 0:65535 each.
+        For FC 66, <strong>msg.payload</strong> must be a single value between 0:65535.
     </p>
 
      <p>Output 1: all given data, modbus response Buffer, input message</p>
